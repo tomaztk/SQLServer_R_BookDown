@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1635887291669.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "9DB8CE22",
+    "lastKnownWriteTime" : 1635917799,
+    "last_content_update" : 1635917799594,
+    "path" : "~/Documents/SQLServerBookDown/01-intro.Rmd",
+    "project_path" : "01-intro.Rmd",
+    "properties" : {
+        "cursorPosition" : "11,0",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

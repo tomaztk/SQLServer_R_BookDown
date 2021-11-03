@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1635918269108.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "C072BAA6",
+    "lastKnownWriteTime" : 1635918300,
+    "last_content_update" : 1635918300106,
+    "path" : "~/Documents/SQLServerBookDown/02-cross-refs.Rmd",
+    "project_path" : "02-cross-refs.Rmd",
+    "properties" : {
+        "cursorPosition" : "6,19",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
