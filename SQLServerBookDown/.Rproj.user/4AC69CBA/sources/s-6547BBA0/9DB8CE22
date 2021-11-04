@@ -7,13 +7,13 @@
     "folds" : "",
     "hash" : "0",
     "id" : "9DB8CE22",
-    "lastKnownWriteTime" : 1635917799,
-    "last_content_update" : 1635917799594,
+    "lastKnownWriteTime" : 1636001264,
+    "last_content_update" : 1636001264731,
     "path" : "~/Documents/SQLServerBookDown/01-intro.Rmd",
     "project_path" : "01-intro.Rmd",
     "properties" : {
-        "cursorPosition" : "11,0",
-        "scrollLine" : "0"
+        "cursorPosition" : "38,16",
+        "scrollLine" : "26"
     },
     "read_only" : false,
     "read_only_alternatives" : [
