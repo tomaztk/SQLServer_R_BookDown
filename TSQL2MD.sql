@@ -76,3 +76,6 @@ WHERE
 t.table_type = 'BASE TABLE'
 AND t.Table_name = 'TestForMD'
 
+
+
+
