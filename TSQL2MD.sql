@@ -83,6 +83,27 @@ BEGIN
 
             SELECT @MD
 
+            -- body
+            DECLARE @body NVARCHAR(MAX)
+            SET @body = 'SELECT
+            ''|'' + CAST(' 
+
+            DECLARE @i INT = 1
+
+            WHILE @i <= @nof_columns
+            BEGIN
+                DECLARE @w VARCHAR(1000) =  (SELECT column_name FROM #temp WHERE Ordinal_position = @i)
+                --SELECT @w
+                    SET @body = @body + @w + ' AS VARCHAR(MAX))+ ''|'' +'
+                SET @i = @i + 1
+            END
+
+            SET @body = @body + ' FROM ' + @table_name
+            SET @MD = @MD + @body
+
+            SELECT @MD
+
+
 END;
 
 
@@ -136,6 +157,23 @@ SELECT @MD
 
 -- body
 DECLARE @body NVARCHAR(MAX)
+SET @body = 'SELECT
+ ''|'' + CAST(' 
+
+--PRINT @body
+DECLARE @i INT = 1
+
+WHILE @i <= 6 --@nof_columns
+BEGIN
+    DECLARE @w VARCHAR(1000) =  (SELECT column_name FROM #temp WHERE Ordinal_position = @i)
+    --SELECT @w
+        SET @body = @body + @w + 'AS VARCHAR(MAX))+ ''|'' +'
+    SET @i = @i + 1
+END
+
+PRINT @body
+
+SET @body = @body + ' from ' + @table_name
 
 
 select 
