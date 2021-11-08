@@ -94,13 +94,27 @@ BEGIN
             BEGIN
                 DECLARE @w VARCHAR(1000) =  (SELECT column_name FROM #temp WHERE Ordinal_position = @i)
                 --SELECT @w
-                    SET @body = @body + @w + ' AS VARCHAR(MAX))+ ''|'' +'
+                    SET @body = @body + @w + ' AS VARCHAR(MAX))+ ''|'' + CAST( '
                 SET @i = @i + 1
             END
 
+            SET @body  = (SELECT SUBSTRING(@body,1, LEN(@body)-8))
             SET @body = @body + ' FROM ' + @table_name
-            SET @MD = @MD + @body
 
+
+            DECLARE @bodyTable TABLE(MD VARCHAR(MAX))
+            INSERT INTO @BodyTable
+            EXEC sp_executesql @body
+
+            --SELECT * FROM @bodyTable
+
+            DECLARE @body2 NVARCHAR(MAX)
+            SELECT @body2 = COALESCE(@body2 + ' ', ' ') + MD 
+            FROM @bodyTable
+
+            --SELECT @Body2
+
+            SET @MD = @MD + @body2
             SELECT @MD
 
 
@@ -167,14 +181,24 @@ WHILE @i <= 6 --@nof_columns
 BEGIN
     DECLARE @w VARCHAR(1000) =  (SELECT column_name FROM #temp WHERE Ordinal_position = @i)
     --SELECT @w
-        SET @body = @body + @w + 'AS VARCHAR(MAX))+ ''|'' +'
+        SET @body = @body + @w + ' AS VARCHAR(MAX))+ ''|'' + CAST( '
     SET @i = @i + 1
 END
 
-PRINT @body
+SET @body  = (SELECT SUBSTRING(@body,1, LEN(@body)-8))
+SET @body = @body + ' from ' + 'testforMD' --@table_name
 
-SET @body = @body + ' from ' + @table_name
+DECLARE @bodyTable TABLe(MD VARCHAR(MAX))
+INSERT INTO @BodyTable
+EXEC sp_executesql @body
 
+SELECT * FROM @bodyTable
+
+DECLARE @body2 NVARCHAR(MAX)
+SELECT @body2 = COALESCE(@body2 + ' ', ' ') + MD 
+FROM @bodyTable
+
+SELECT @Body2
 
 select 
  '|' + CAST( id AS VARCHAR(MAX))+ '|' +
@@ -184,3 +208,5 @@ CAST( salary AS VARCHAR(MAX))+ '|' +
 CAST( height AS VARCHAR(MAX))+ '|' +
 CAST( MaritalStatus AS VARCHAR(MAX))+ '|'
  from dbo.testforMD
+
+
