@@ -32,11 +32,35 @@ SELECT * FROM TestForMD
 
 
 -- Select statement
-CREATE OR ALTER PROCEDURE dbo.Select2MD
+CREATE OR ALTER  PROCEDURE [dbo].[Select2MD]
+/*
+Author: Tomaz Kastrun
+Date: 08.Nov.2021
+Description:
+	Turns resultset of selected table into Markdown
+
+Usage:
+	EXEC dbo.select2MD
+		@table_name = 'TestForMD'
+	   ,@schema_name = 'dbo'
+
+ChangeLog:
+	- 
+
+ToDO:
+	- data types and left/right alignment
+	- line breaks - OK
+
+*/
+
+
     @table_name VARCHAR(200)
     ,@schema_name VARCHAR(20)
 AS 
 BEGIN
+
+	SET NOCOUNT ON;
+
     -- get the columns of the table
         SELECT 
             c.Column_name
@@ -55,8 +79,6 @@ BEGIN
         t.table_type = 'BASE TABLE'
         AND t.Table_name = @table_name
         AND t.table_schema = @schema_name
-
-
 
             DECLARE @MD NVARCHAR(MAX)
 
@@ -79,9 +101,7 @@ BEGIN
             DECLARE @firstLine NVARCHAR(MAX) = (SELECT  REPLICATE('|---',@nof_columns) + '|')  
 
 
-            SET @MD = @title +CHAR(10) + @header + CHAR(13) + CHAR(10) + @firstLine
-
-            SELECT @MD
+            SET @MD = @title +CHAR(10) + @header + CHAR(13) + CHAR(10) + @firstLine  + CHAR(10)
 
             -- body
             DECLARE @body NVARCHAR(MAX)
@@ -93,7 +113,6 @@ BEGIN
             WHILE @i <= @nof_columns
             BEGIN
                 DECLARE @w VARCHAR(1000) =  (SELECT column_name FROM #temp WHERE Ordinal_position = @i)
-                --SELECT @w
                     SET @body = @body + @w + ' AS VARCHAR(MAX))+ ''|'' + CAST( '
                 SET @i = @i + 1
             END
@@ -106,19 +125,18 @@ BEGIN
             INSERT INTO @BodyTable
             EXEC sp_executesql @body
 
-            --SELECT * FROM @bodyTable
 
             DECLARE @body2 NVARCHAR(MAX)
-            SELECT @body2 = COALESCE(@body2 + ' ', ' ') + MD 
+            SELECT @body2 = COALESCE(@body2 + ' ', ' ') + MD + CHAR(10) 
             FROM @bodyTable
 
-            --SELECT @Body2
 
             SET @MD = @MD + @body2
             SELECT @MD
 
 
 END;
+GO
 
 
 EXEC dbo.select2MD
