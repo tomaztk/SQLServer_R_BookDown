@@ -122,8 +122,14 @@ BEGIN
             SELECT @body2 = COALESCE(@body2 + ' ', ' ') + MD + CHAR(10) 
             FROM @bodyTable
 
-
             SET @MD = @MD + @body2
+
+            --Addint timestamp
+            DECLARE @Timestamp VARCHAR(100) = (SELECT GETDATE())
+            DECLARE @UserName VARCHAR(100) = (SELECT SUSER_SNAME())
+            DECLARE @FootNote VARCHAR(200) = CHAR(10) + 'Created on: ' + @Timestamp + ' by user: ' + @UserName + CHAR(10)
+          
+            SET @MD = @MD + @FootNote
             SELECT @MD
 
 
